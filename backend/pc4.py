@@ -1,10 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from google.colab import files
-files.upload()
-
-encodings = pd.read_csv("0_478.txt", header=None)
+encodings = pd.read_csv("encodings/complete.txt", header=None)
 
 # iloc para traer filas y columnas, like an matrix for data
 data = encodings.iloc[ : ,1:129]
@@ -74,3 +71,30 @@ for n_query in range(len(N)):
       print(encodings.iloc[[x for y,x in result], 129])
 
 print(encodings)
+
+from rtree import index
+from sklearn.decomposition import PCA
+
+p = index.Property()
+p.dimension = 32
+p.buffering_capacity = 5
+p.dat_extension = 'data'
+p.idx_extension = 'index'
+idx = index.Index(properties=p)
+
+pca = PCA(n_components=32);
+print(data.shape)
+
+
+pca_data = pca.fit_transform(data);
+k = 16
+q = pca_data[5];
+print("target", encodings.iloc[5,129]);
+np.delete(pca_data, 0, 0);
+
+for i in range(len(pca_data)):
+  x = pca_data[i];
+  idx.insert(i, (*x, *x));
+
+res = list(idx.nearest(coordinates=(*q, *q), num_results=k));
+print("results", encodings.iloc[res,129]);
