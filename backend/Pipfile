@@ -9,6 +9,9 @@ verify_ssl = true
 face-recognition = "*"
 ipython = "*"
 flask = "*"
+rtree = "*"
+sklearn = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.8"

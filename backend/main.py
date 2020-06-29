@@ -1,11 +1,11 @@
 import face_recognition
 import numpy as np
 import os
-# from PIL import Image, ImageDraw
-# from IPython.display import display
 import time
 import threading
 import logging
+import pandas as pd
+from sklearn.decomposition import PCA
 
 def encode_from_dir(path, encodings):
     for subdir, dirs, files in os.walk(path):
@@ -20,9 +20,6 @@ def encode_from_dir(path, encodings):
                     encodings.append((file_path, encoding.tolist(), name))
                 except IndexError:
                     pass
-                    # print("face not found")
-    # print('en', encodings)
-            
 
 def thread_function(name, chunk):
     logging.info("Thread %s: starting", name)
@@ -31,7 +28,6 @@ def thread_function(name, chunk):
     encodings = [];
     for i, path in enumerate(chunk):
         encode_from_dir(path, encodings);
-    # print("encodings", encodings)
     with open('encodings/{}_{}.txt'.format(name, i), 'w+') as f:
         for encoding in encodings:
             f.write("{}\n".format(encoding))
@@ -40,7 +36,7 @@ def thread_function(name, chunk):
 rootdir = 'fotos'
 chunks = [];
 n = 12;
-threads_n = 4; # esto es 4 para ti, asi que dejalo así como está
+threads_n = 4;
 dirs = [ os.path.join(rootdir, subdir) for subdir in os.listdir(rootdir) ]
 chunk_size = len(dirs) // n;
 for i in range(threads_n):
@@ -64,26 +60,3 @@ for thread in threads:
 logging.info("Main    : all done")
 end = time.time();
 print("total time:", end - start);
-
-
-
-# for subdir, dirs, files in os.walk(rootdir):
-#     if len(files) > 1:
-#         _, name = subdir.split("/");
-#         name = name.replace("_", " ");
-#         # print(name, len(files));
-#         for i, file in enumerate(files):
-#             print(name);
-#             start = time()
-#             image = face_recognition.load_image_file(os.path.join(subdir, file));
-#             face_locations = face_recognition.face_locations(image, number_of_times_to_upsample=2)
-#             try:
-#                 encoding = face_recognition.face_encodings(image, known_face_locations=face_locations, num_jitters=100)[0]
-#                 print(name, encoding[:10])
-#             except IndexError:
-#                 print("face not found")
-#             end = time()
-#             print("total time", end - start)
-#         ndirs += 1
-#         nfiles += len(files)
-# print(ndirs, nfiles)
