@@ -28,7 +28,7 @@ def thread_function(name, chunk):
     encodings = [];
     for i, path in enumerate(chunk):
         encode_from_dir(path, encodings);
-    with open('encodings/{}_{}.txt'.format(name, i), 'w+') as f:
+    with open('encodings/{}.txt'.format(name), 'w+') as f:
         for encoding in encodings:
             f.write("{}\n".format(encoding))
     logging.info("Thread %s: finishing", name)
@@ -36,10 +36,10 @@ def thread_function(name, chunk):
 rootdir = 'fotos'
 chunks = [];
 n = 12;
-threads_n = 4;
+threads_n = 8;
 dirs = [ os.path.join(rootdir, subdir) for subdir in os.listdir(rootdir) ]
-chunk_size = len(dirs) // n;
-for i in range(threads_n):
+chunk_size = len(dirs) // (2 * n);
+for i in range(0, 8):
     if i == n - 1:
         chunks.append(dirs[chunk_size*i:])
     else:

@@ -1,11 +1,20 @@
 <!doctype html>
 <head>
+    <title>Búsqueda de imágenes</title>
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 </head>
-<title>Búsqueda de imágenes</title>
-<h1>Búsqueda de imágenes</h1>
-<form method="POST" enctype="multipart/form-data">
-  <input type="number" name="k">
-  <input type="file" name="file">
-  <input type="submit" value="Cargar">
-</form>
+<body>
+    <div class="wrapper">
+        <h1>Búsqueda de imágenes</h1>
+        <form method="POST" enctype="multipart/form-data">
+        <input type="number" name="k">
+        <input type="file" name="file">
+        <input type="submit" name="Cargar">
+        </form>
+        <div class="images">
+            {% for image in images %}
+            <img src="{{url_for('static', filename=image)}}" alt="{{image}}">
+            {% endfor %}
+        </div>
+    </div>
+</body>

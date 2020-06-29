@@ -1,0 +1,21 @@
+body { 
+    width: 960px; 
+    margin: 0 auto; 
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+img {
+    padding: 10px;
+}
+
+.images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
+    color: #444;
+}

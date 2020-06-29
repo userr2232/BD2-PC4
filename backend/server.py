@@ -1,5 +1,5 @@
 from sklearn.decomposition import PCA
-from pc4 import knn_rtree
+from pc4 import KNN
 import face_recognition
 from flask import Flask, jsonify, request, redirect, render_template
 
@@ -33,9 +33,14 @@ def upload_image():
             img = face_recognition.load_image_file(file)
             encoding = face_recognition.face_encodings(img);
             if encoding:
-                return knn_rtree(encoding, k);
+                images = knn.knn_rtree(encoding[0], k)
+                print("images", images)
+                return render_template("index.html", images=images);
+            else:
+                print("no encoding")
     # If no valid image file was uploaded, show the file upload form:
     return render_template("index.html");
 
 if __name__ == "__main__":
+    knn = KNN();
     app.run(host='0.0.0.0', port=5001, debug=True)
