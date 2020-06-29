@@ -71,3 +71,8 @@ En nuestra data no hubo mucha diferencia al usar ambas distancias.
 | N = 1600 |  3.301E-3  |    4.451E-1    |
 | N = 3200 |  6.473E-3  |   8.823E-1    |
 | N = 6400 |  1.186E-1 |  1.622  |
+
+## Aplicación
+En la aplicación se puede subir una foto y elegir un número k. Esto retorna k imágenes cercanas.
+
+![](fotos/ar.png)
