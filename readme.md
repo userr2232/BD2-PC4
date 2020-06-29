@@ -31,7 +31,7 @@ def knnSearchHeap(data, Q, k):
     return result
 ~~~
 Se tiene data como todas las tuplas, Q como el vector caracteristico de la foto que buscamos y k como el numero maximo de resultados que buscaremos.
-La busqueda knn con heap itera por toda la data y agrega esta a un max heap cordenado por -d, negativa de la distancia, respecto a el vector caracteristico Q. Se usa -d ya que lo que buscamos son los vectores caracteristicos con mayor similitud y por ende con menor distancia, al ser un max heap nos conviene agregarlo con -d. Despues de agregar todos los datos al heap, quitamos los elementos con menor cercania, o mayor distancia, hasta quedarnos con un heap de tamaño k.
+La busqueda knn con heap itera por toda la data y agrega esta a un max heap cordenado por -d, negativa de la distancia, respecto a el vector caracteristico Q. Se usa -d ya que lo que buscamos son los vectores caracteristicos con mayor similitud y por ende con menor distancia, al ser un max heap nos conviene agregarlo con -d. Despues de agregar todos los datos al heap, quitamos los elementos con menor cercania, o mayor distancia, hasta quedarnos con un heap de tamaño k. Por ultimo revertimos el orden de la lista para que los primeros en esta sean los mas cercanos al vector caracteristico Q.
 
 ## rtree
 ~~~
@@ -60,4 +60,5 @@ for i in range(len(pca_data)):
 # Experimentacion
 ## Precision de distancia euclidiana vs manhattan
 ![](fotos/p1.png)
+En nuestra data no hubo mucha diferencia al usar ambas distancias.
 ## Tiempos de Knn-RTree vs Knn-Secuencial
