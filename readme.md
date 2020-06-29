@@ -2,20 +2,20 @@
 - Indhira Ramirez
 - Reynaldo Rojas
 
-## Librerias usadas
+## Librerías usadas
 - pandas
 - numpy
 - face_recognition
 - rtree
-- sklearn.decomposition
+- sklearn
 - heapq
-# Algoritmos de busqueda
+# Algoritmos de búsqueda
 ## distacia euclidiana y manhattan
 ~~~
 DE_l2 = lambda x,y : sum((x-y)**2)**0.5
 DM_l1 = lambda x,y : sum(abs(x-y))
 ~~~
-La distancia euclidiana, que mide la distancia de dos puntos, se mide como la logitud del segmento que los une y paraello usamos el teorema de pitagoras. Mientras que la manhattan mide la distancia como la suma de las diferencias de sus coordenadas. 
+La distancia euclidiana, es la raíz cuadrada de la suma de los cuadrados de las diferencias en n-dimensiones. Mientras que la manhattan mide la distancia como la suma de el valor absoluto las diferencias de las coordenadas. 
 
 ## KnnSearch con heap
 ~~~
@@ -30,8 +30,8 @@ def knnSearchHeap(data, Q, k):
     result = list(reversed(result))
     return result
 ~~~
-Se tiene data como todas las tuplas, Q como el vector caracteristico de la foto que buscamos y k como el numero maximo de resultados que buscaremos.
-La busqueda knn con heap itera por toda la data y agrega esta a un max heap cordenado por -d, negativa de la distancia, respecto a el vector caracteristico Q. Se usa -d ya que lo que buscamos son los vectores caracteristicos con mayor similitud y por ende con menor distancia, al ser un max heap nos conviene agregarlo con -d. Despues de agregar todos los datos al heap, quitamos los elementos con menor cercania, o mayor distancia, hasta quedarnos con un heap de tamaño k. Por ultimo revertimos el orden de la lista para que los primeros en esta sean los mas cercanos al vector caracteristico Q.
+Se tiene data como todas las tuplas, Q como el vector característico de la foto que buscamos y k como el número máximo de resultados que buscaremos.
+La búsqueda knn con heap itera por toda la data y agrega esta a un max heap ordenado por -d, negativa de la distancia, respecto a el vector característico Q. Se usa -d ya que lo que buscamos son los vectores caracteristicos con mayor similitud y por ende con menor distancia, al ser un max heap nos conviene agregarlo con -d. Después de agregar todos los datos al heap, quitamos los elementos con menor cercanía, o mayor distancia, hasta quedarnos con un heap de tamaño k. Por último, revertimos el orden de la lista para que los primeros en esta sean los mas cercanos al vector característico Q.
 
 ## rtree
 ~~~
@@ -44,7 +44,7 @@ idx = index.Index(properties=p)
 
 pca = PCA(n_components=32);
 ~~~
-Definimos p como nuestro indice y le ponemos dimencio 32, que es el numero de clusters que podra tener. Buffer_capacity es nuestro maximo de puntos por cada uno de estos clusters.
+Definimos p como nuestro índice y le ponemos dimensión 32, que es el numero de clusters que podrá tener. buffer_capacity es el máximo de puntos por cada uno de estos clusters.
 ~~~
 pca_data = pca.fit_transform(data);
 k = 16
@@ -57,8 +57,8 @@ for i in range(len(pca_data)):
   idx.insert(i, (*x, *x));
 ~~~
 
-# Experimentacion
-## Precision de distancia euclidiana vs manhattan
+# Experimentación
+## Precisión con distancias euclidiana y manhattan
 ![](fotos/p1.png)
 En nuestra data no hubo mucha diferencia al usar ambas distancias.
 ## Tiempos de Knn-RTree vs Knn-Secuencial
