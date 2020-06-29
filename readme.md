@@ -44,7 +44,7 @@ idx = index.Index(properties=p)
 
 pca = PCA(n_components=32);
 ~~~
-Definimos p como nuestro índice y le ponemos dimensión 32, que es el numero de clusters que podrá tener. buffer_capacity es el máximo de puntos por cada uno de estos clusters.
+El índice rtree no es eficiente con datos de muchas dimensiones. Antes de insertar los encodings de las imágenes, se utilizó la técnica de PCA de la librería sklearn. Esto con la finalidad de reducir las dimensiones de 128 a 32.
 ~~~
 pca_data = pca.fit_transform(data);
 k = 16
