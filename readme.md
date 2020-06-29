@@ -62,3 +62,12 @@ for i in range(len(pca_data)):
 ![](fotos/p1.png)
 En nuestra data no hubo mucha diferencia al usar ambas distancias.
 ## Tiempos de Knn-RTree vs Knn-Secuencial
+| Tiempo  | KNN-RTree | KNN-Secuencial |
+| ------- | --------- | -------------- |
+| N = 100 |  4.580E-4 |     3.458E-2    |
+| N = 200 | 6.659E-4   |    6.710E-2  |
+| N = 400 | 1.255E-3  |  2.025E-1  |
+| N = 800 | 1.755E-3  |   2.464E-1   |
+| N = 1600 |  3.301E-3  |    4.451E-1    |
+| N = 3200 |  6.473E-3  |   8.823E-1    |
+| N = 6400 |  1.186E-1 |  1.622  |

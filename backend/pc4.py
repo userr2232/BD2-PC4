@@ -4,6 +4,7 @@ import numpy as np
 import heapq
 from rtree import index
 from sklearn.decomposition import PCA
+import time
 
 class KNN():
   dimension = 32;
@@ -85,7 +86,7 @@ class KNN():
   def knnSearchHeap(data, Q, k):
     result = [];
     for index, row in data.iterrows():
-      d = DE_l2(Q, row);
+      d = KNN.DE_l2(Q, row);
       heapq.heappush(result, (-d, index));
     while len(result) > k:
       heapq.heappop(result);
@@ -93,8 +94,13 @@ class KNN():
     result = list(reversed(result));
     return result;
 
-  def knn_rtree(self, q, k):
-    q = self.pca.transform(np.array([q]))[0];
-    print(q)
-    res = list(self.idx.nearest(coordinates=(*q, *q), num_results=int(k)));
+  def knn(self, q, k):
+    k = int(k);
+    q_pca = self.pca.transform(np.array([q]))[0];
+    start = time.time()
+    res = list(self.idx.nearest(coordinates=(*q_pca, *q_pca), num_results=k));
+    print("rtree time", time.time() - start);
+    start = time.time();
+    self.knnSearchHeap(self.data, q, k);
+    print("knn seq time", time.time() - start);
     return [ path[1:-1] for path in self.encodings.iloc[res, 0] ];

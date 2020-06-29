@@ -33,7 +33,7 @@ def upload_image():
             img = face_recognition.load_image_file(file)
             encoding = face_recognition.face_encodings(img);
             if encoding:
-                images = knn.knn_rtree(encoding[0], k)
+                images = knn.knn(encoding[0], k)
                 print("images", images)
                 return render_template("index.html", images=images);
             else:
